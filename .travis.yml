@@ -1,0 +1,28 @@
+dist: xenial
+language: c
+os:
+  - linux
+arch:
+  - amd64
+  - arm64
+addons:
+  apt:
+    packages:
+      - openjdk-8-jdk
+      - tcl8.5
+      - ruby
+
+env:
+  - CFLAGS=-Wall
+
+before_script:
+  # test runtime env
+  - export PATH=/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)/bin:$PATH
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)
+  - readlink -f `which javac`
+  - echo $JAVA_HOME
+  - java -version
+  - env
+
+script:
+  - ${CC} --version
